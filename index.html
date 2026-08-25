@@ -262,6 +262,22 @@
   textarea::placeholder { color: var(--ink-faint); }
 
 
+
+  /* follow-up that slides in */
+  .reveal { display: none; }
+  .reveal.on { display: block; animation: rise-in .35s cubic-bezier(.2,.7,.3,1) both; }
+  .reveal input[type="text"] {
+    font: inherit; width: 100%;
+    color: var(--ink); background: var(--paper);
+    border: 2px solid var(--accent-soft); border-radius: 14px;
+    padding: 13px 15px; box-shadow: 0 3px 0 var(--accent-soft);
+  }
+  .reveal input[type="text"]:focus { outline: 3px solid var(--focus); outline-offset: 2px; border-color: var(--accent); }
+  .reveal input::placeholder { color: var(--ink-faint); }
+
+  .plans { display: flex; gap: 10px; flex-wrap: wrap; }
+  .plans .opt { flex: 1 1 auto; text-align: center; padding: 13px 16px; }
+
   /* tappable times */
   .times {
     display: grid;
@@ -528,6 +544,17 @@
       <button class="opt" type="button" data-val="Out somewhere">Out somewhere</button>
       <button class="opt" type="button" data-val="Not sure yet">Not sure yet</button>
     </div>
+    <div class="reveal" id="whereMore">
+      <p class="hint">Where?</p>
+      <input type="text" id="whereText" placeholder="the mall? Andrea? Bacolod?">
+    </div>
+    <div class="reveal" id="notSureMore">
+      <p class="hint">wanna make plans with me?</p>
+      <div class="plans" id="plansOpts">
+        <button class="opt" type="button" data-val="Yes, let's">Yes, let&rsquo;s</button>
+        <button class="opt" type="button" data-val="Surprise me">Surprise me</button>
+      </div>
+    </div>
     <p class="err"></p>
     <div class="nav">
       <button class="next" type="button" id="n2" disabled>Next</button>
@@ -570,7 +597,6 @@
   <!-- 2b ────────────────────────────────────────────── -->
   <section class="step" data-step="reason">
     <h1>Aw. What's on that day?</h1>
-    <p class="sub">Tell me what you've got and I'll work around it.</p>
     <textarea id="reason" placeholder="I have work / a family thing..."></textarea>
     <p class="err" id="err4"></p>
     <div class="nav">
@@ -700,7 +726,7 @@ var Confetti = (function () {
   var steps = {};
   [].forEach.call(document.querySelectorAll('.step'), function (s) { steps[s.dataset.step] = s; });
 
-  var answers = { free: '', where: '', times: [], allday: false, note: '', reason: '' };
+  var answers = { free: '', where: '', whereText: '', plans: '', times: [], allday: false, note: '', reason: '' };
   var trail = [], current = 'free', lit = 0;
 
   var candles = [].slice.call(document.querySelectorAll('.candle'));
@@ -737,8 +763,28 @@ var Confetti = (function () {
       var step = group.closest('.step').dataset.step;
       var picked = [].map.call(group.querySelectorAll('.opt.sel'), function (o) { return o.dataset.val; });
       if (step === 'free')  { answers.free  = picked[0] || ''; enable('n1', !!picked.length); }
-      if (step === 'where') { answers.where = picked[0] || ''; enable('n2', !!picked.length); }
+      if (step === 'where') {
+        answers.where = picked[0] || '';
+        var more = document.getElementById('whereMore');
+        var ns   = document.getElementById('notSureMore');
+        more.classList.toggle('on', answers.where === 'Out somewhere');
+        ns.classList.toggle('on',   answers.where === 'Not sure yet');
+        if (answers.where !== 'Out somewhere') document.getElementById('whereText').value = '';
+        if (answers.where !== 'Not sure yet') {
+          answers.plans = '';
+          [].forEach.call(document.querySelectorAll('#plansOpts .opt'), function (o) { o.classList.remove('sel'); });
+        }
+        enable('n2', !!picked.length);
+      }
     });
+  });
+
+  var plansBox = document.getElementById('plansOpts');
+  plansBox.addEventListener('click', function (e) {
+    var b = e.target.closest('.opt');
+    if (!b) return;
+    [].forEach.call(plansBox.querySelectorAll('.opt'), function (o) { o.classList.toggle('sel', o === b); });
+    answers.plans = b.dataset.val;
   });
 
   function enable(id, on) { var b = document.getElementById(id); if (b) b.disabled = !on; }
@@ -747,7 +793,11 @@ var Confetti = (function () {
     light(1);
     go(answers.free === 'yes' ? 'where' : 'reason');
   });
-  document.getElementById('n2').addEventListener('click', function () { light(2); go('time'); });
+  document.getElementById('n2').addEventListener('click', function () {
+    answers.whereText = answers.where === 'Out somewhere'
+      ? document.getElementById('whereText').value.trim() : '';
+    light(2); go('time');
+  });
   var timesBox = document.getElementById('times');
   var allday   = document.getElementById('allday');
 
@@ -796,7 +846,8 @@ var Confetti = (function () {
       dl.appendChild(dt); dl.appendChild(dd);
     }
     row('Free?',  answers.free === 'yes' ? 'Yes' : 'No');
-    row('Where',  answers.where);
+    row('Where',  answers.where + (answers.whereText ? ' \u2014 ' + answers.whereText : ''));
+    row('Plans',  answers.plans);
     row('Free',   answers.allday ? 'All day' : answers.times.join(', '));
     row('Note',   answers.note);
     row('Reason', answers.reason);
@@ -856,7 +907,8 @@ var Confetti = (function () {
         subject: 'Her answer:',
         from_name: 'Birthday question',
         'Free on Sept 22': answers.free === 'yes' ? 'Yes' : 'No',
-        'Where': answers.where || '—',
+        'Where': (answers.where || '—') + (answers.whereText ? ' — ' + answers.whereText : ''),
+        'Wants to make plans': answers.plans || '—',
         'Times free': answers.allday ? 'All day' : (answers.times.join(', ') || '—'),
         'Her note': answers.note || '—',
         'Reason busy': answers.reason || '—'
