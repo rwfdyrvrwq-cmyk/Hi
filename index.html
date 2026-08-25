@@ -58,7 +58,7 @@
   }
 
   * { box-sizing: border-box; }
-  html { overflow-x: hidden; }
+  html, body { overflow-x: hidden; max-width: 100%; }
 
   body {
     margin: 0;
@@ -94,6 +94,13 @@
   .balloon.b6 { left: 91%; --dur: 29s; --delay: -12s; width: 42px; }
 
   /* ── flowers on the desk ────────────────────────────────────── */
+  .garden {
+    position: fixed; inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .side {
     position: absolute; pointer-events: none; z-index: 0;
     --rot: 0deg;
@@ -116,8 +123,8 @@
 
   @media (max-width: 860px) {
     .side { display: none; }
-    .side.s1, .side.s3 { display: block; left: -10px; width: 32px; }
-    .side.s5, .side.s7 { display: block; right: -10px; width: 32px; }
+    .side.s1, .side.s3 { display: block; left: 0; width: 32px; }
+    .side.s5, .side.s7 { display: block; right: 0; width: 32px; }
     .balloon { width: 38px !important; }
     .balloon.b3, .balloon.b4 { display: none; }
   }
@@ -127,7 +134,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 560px;
+    max-width: min(560px, 100%);
     margin: 0 auto;
     background: var(--paper);
     border-radius: 22px;
@@ -408,6 +415,7 @@
   <svg class="balloon b6" viewBox="0 0 60 100" style="color:var(--coral)"><use href="#balloon"/></svg>
 </div>
 
+<div class="garden" aria-hidden="true">
 <svg class="side s1" viewBox="0 0 100 100" aria-hidden="true"><use href="#bloom"/></svg>
 <svg class="side s2" viewBox="0 0 100 100" aria-hidden="true"><use href="#blossom"/></svg>
 <svg class="side s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#sprig"/></svg>
@@ -416,6 +424,7 @@
 <svg class="side s6" viewBox="0 0 100 100" aria-hidden="true"><use href="#sprig"/></svg>
 <svg class="side s7" viewBox="0 0 100 100" aria-hidden="true"><use href="#bloom"/></svg>
 <svg class="side s8" viewBox="0 0 100 100" aria-hidden="true"><use href="#blossom"/></svg>
+</div>
 
 <div class="card">
 
