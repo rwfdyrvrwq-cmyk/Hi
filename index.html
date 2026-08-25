@@ -939,48 +939,5 @@ var Confetti = (function () {
 })();
 </script>
 
-<script>
-/* only runs with ?debug=1 — reports what is making the page too wide */
-(function () {
-  if (!/[?&]debug=1/.test(location.search)) return;
-  var box = document.createElement('div');
-  box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#1b1b1b;' +
-    'color:#9fe;font:12px/1.45 ui-monospace,Menlo,monospace;padding:10px 12px;' +
-    'white-space:pre-wrap;max-height:52vh;overflow:auto;';
-  document.body.appendChild(box);
-
-  function run() {
-    var vw = document.documentElement.clientWidth;
-    var out = [];
-    out.push('viewport   ' + vw + ' x ' + document.documentElement.clientHeight);
-    out.push('innerWidth ' + window.innerWidth);
-    out.push('doc scroll ' + document.documentElement.scrollWidth);
-    out.push('body scroll ' + document.body.scrollWidth);
-    out.push('overflow?  ' + (document.documentElement.scrollWidth > vw ? 'YES  <-- problem' : 'no'));
-
-    var card = document.querySelector('.card');
-    if (card) {
-      var r = card.getBoundingClientRect();
-      out.push('card L=' + Math.round(r.left) + ' R=' + Math.round(vw - r.right) + ' W=' + Math.round(r.width));
-    }
-
-    var bad = [];
-    [].forEach.call(document.querySelectorAll('body *'), function (el) {
-      var r = el.getBoundingClientRect();
-      if (r.width === 0 && r.height === 0) return;
-      if (r.right > vw + 1 || r.left < -1) {
-        bad.push('  ' + el.tagName.toLowerCase() +
-          (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '') +
-          '  L=' + Math.round(r.left) + ' R=' + Math.round(r.right));
-      }
-    });
-    out.push('sticking out: ' + (bad.length ? '\n' + bad.slice(0, 12).join('\n') : 'nothing'));
-    box.textContent = out.join('\n');
-  }
-  run();
-  addEventListener('resize', run);
-  addEventListener('orientationchange', function () { setTimeout(run, 300); });
-})();
-</script>
 </body>
 </html>
