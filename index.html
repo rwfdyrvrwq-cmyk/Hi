@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Quick Question</title>
+<meta name="theme-color" content="#FFF7F3">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='18' y='46' width='64' height='38' rx='8' fill='%23F2A2C0'/%3E%3Crect x='24' y='34' width='52' height='20' rx='6' fill='%23FFF1E2'/%3E%3Crect x='47' y='16' width='6' height='18' rx='3' fill='%23E8B44A'/%3E%3Cellipse cx='50' cy='12' rx='6' ry='9' fill='%23FFB24D'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="A Quick Question">
+<meta property="og:description" content="One tiny thing I need to ask you.">
+<meta property="og:url" content="https://rwfdyrvrwq-cmyk.github.io/Hi/">
+<meta property="og:image" content="https://rwfdyrvrwq-cmyk.github.io/Hi/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="A Quick Question">
+<meta name="twitter:description" content="One tiny thing I need to ask you.">
+<meta name="twitter:image" content="https://rwfdyrvrwq-cmyk.github.io/Hi/og-card.png">
+
+<style>
+  :root {
+    --paper:      #FFF7F3;
+    --desk:       #F7E3E7;
+    --rule:       #F2D9E0;
+    --ink:        #5E3F52;
+    --ink-soft:   #93758A;
+    --ink-faint:  #BCA2B4;
+
+    --accent:     #E0729A;
+    --accent-deep:#C4527F;
+    --accent-soft:#F8D2DF;
+
+    --gold:       #E3A93C;
+    --gold-soft:  #F7DFA6;
+    --flame-a:    #FFD37A;
+    --flame-b:    #FF9A3C;
+
+    --petal-a:    #F9CBDC;
+    --petal-b:    #F2A2C0;
+    --petal-c:    #E87BA5;
+    --heart:      #FDD9A0;
+    --leaf:       #A9BE9E;
+
+    --mint:       #9FD8C4;
+    --lilac:      #C3AEE0;
+    --coral:      #F79B7D;
+
+    --shadow:     rgba(150,100,120,.2);
+    --focus:      #C4527F;
+
+    --lh: 32px;
+    --hand: "Snell Roundhand", "Bradley Hand", "Segoe Script", "Brush Script MT", cursive;
+    --soft: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN",
+            "Varela Round", "Nunito", "Quicksand", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html { overflow-x: hidden; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--desk);
+    color: var(--ink);
+    font-family: var(--soft);
+    font-size: 17.5px;
+    line-height: var(--lh);
+    -webkit-font-smoothing: antialiased;
+    padding: clamp(16px,4vw,48px) clamp(14px,4vw,32px);
+    position: relative;
+  }
+
+  /* ── balloons drifting up behind everything ─────────────────── */
+  .balloons { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .balloon {
+    position: absolute;
+    bottom: -220px;
+    width: 62px;
+    animation: rise var(--dur,22s) linear var(--delay,0s) infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0) rotate(-4deg); }
+    50%  { transform: translateY(-60vh) translateX(22px) rotate(4deg); }
+    100% { transform: translateY(-125vh) translateX(-14px) rotate(-3deg); }
+  }
+  .balloon.b1 { left: 4%;  --dur: 24s; --delay: 0s;   width: 58px; }
+  .balloon.b2 { left: 19%; --dur: 30s; --delay: -8s;  width: 44px; }
+  .balloon.b3 { left: 38%; --dur: 27s; --delay: -16s; width: 52px; }
+  .balloon.b4 { left: 58%; --dur: 33s; --delay: -4s;  width: 46px; }
+  .balloon.b5 { left: 76%; --dur: 25s; --delay: -20s; width: 60px; }
+  .balloon.b6 { left: 91%; --dur: 29s; --delay: -12s; width: 42px; }
+
+  /* ── flowers on the desk ────────────────────────────────────── */
+  .side {
+    position: absolute; pointer-events: none; z-index: 0;
+    --rot: 0deg;
+    transform: rotate(var(--rot));
+    transform-origin: 50% 90%;
+    animation: sway var(--dur,11s) ease-in-out var(--delay,0s) infinite;
+  }
+  @keyframes sway {
+    0%,100% { transform: rotate(var(--rot)) translateY(0); }
+    50%     { transform: rotate(calc(var(--rot) + 3.5deg)) translateY(-4px); }
+  }
+  .side.s1 { left: 1%;  top: 6%;  width: 58px; --rot:  14deg; opacity: .4;  --dur: 10s;   --delay: -1s; }
+  .side.s2 { left: 6%;  top: 30%; width: 38px; --rot: -19deg; opacity: .32; --dur: 12s;   --delay: -4s; }
+  .side.s3 { left: 2%;  top: 56%; width: 50px; --rot:   8deg; opacity: .36; --dur: 13.5s; --delay: -7s; }
+  .side.s4 { left: 7%;  top: 82%; width: 34px; --rot:  23deg; opacity: .3;  --dur: 9.5s;  --delay: -2s; }
+  .side.s5 { right: 2%; top: 10%; width: 54px; --rot: -16deg; opacity: .38; --dur: 11s;   --delay: -3s; }
+  .side.s6 { right: 7%; top: 36%; width: 36px; --rot:  21deg; opacity: .3;  --dur: 12.8s; --delay: -6s; }
+  .side.s7 { right: 1%; top: 62%; width: 60px; --rot:  -7deg; opacity: .36; --dur: 10.6s; --delay: -8s; }
+  .side.s8 { right: 6%; top: 88%; width: 34px; --rot:  17deg; opacity: .3;  --dur: 13.2s; --delay: -1.5s; }
+
+  @media (max-width: 860px) {
+    .side { display: none; }
+    .side.s1, .side.s3 { display: block; left: -10px; width: 32px; }
+    .side.s5, .side.s7 { display: block; right: -10px; width: 32px; }
+    .balloon { width: 38px !important; }
+    .balloon.b3, .balloon.b4 { display: none; }
+  }
+
+  /* ── the card ───────────────────────────────────────────────── */
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    background: var(--paper);
+    border-radius: 22px;
+    box-shadow: 0 2px 3px var(--shadow), 0 20px 50px -12px var(--shadow);
+    padding: 0 clamp(22px,5vw,40px) 36px;
+    overflow: hidden;
+  }
+
+  /* bunting across the top */
+  .bunting { display: block; width: calc(100% + 80px); margin: 0 -40px 6px; height: 44px; }
+  .bunting .flag { transform-origin: 50% 0; animation: flutter 4s ease-in-out infinite; }
+  @keyframes flutter {
+    0%,100% { transform: rotate(-1.5deg); }
+    50%     { transform: rotate(1.5deg); }
+  }
+
+  /* ── the cake ───────────────────────────────────────────────── */
+  .cake-wrap { display: flex; justify-content: center; margin: 2px 0 10px; }
+  .cake { width: 190px; height: 175px; overflow: visible; }
+
+  .flame { opacity: 0; transform-origin: 50% 100%; transition: opacity .45s ease; }
+  .candle.lit .flame { opacity: 1; animation: flicker 1.1s ease-in-out infinite; }
+  .candle.lit .glow  { opacity: .5; }
+  .glow { opacity: 0; transition: opacity .5s ease; }
+  @keyframes flicker {
+    0%,100% { transform: scaleY(1)    scaleX(1)    translateY(0); }
+    35%     { transform: scaleY(1.14) scaleX(.92)  translateY(-1.5px); }
+    65%     { transform: scaleY(.93)  scaleX(1.06) translateY(.5px); }
+  }
+
+  .lit-count {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 0 0 20px;
+  }
+
+  /* ── steps ──────────────────────────────────────────────────── */
+  .step { display: none; }
+  .step.on { display: block; animation: rise-in .45s cubic-bezier(.2,.7,.3,1) both; }
+  @keyframes rise-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .eyebrow {
+    font-family: var(--hand);
+    font-size: 21px;
+    color: var(--accent);
+    margin: 0 0 4px;
+    transform: rotate(-1.5deg);
+    transform-origin: left center;
+  }
+
+  h1 {
+    font-size: 30px; font-weight: 600; line-height: 1.25;
+    letter-spacing: -.02em; margin: 0 0 10px; text-wrap: balance;
+  }
+  .sub { color: var(--ink-soft); margin: 0 0 22px; font-size: 16px; }
+
+  .date-strip {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 600;
+    border-top: 2px solid var(--gold-soft);
+    border-bottom: 2px solid var(--gold-soft);
+    padding: 5px 0; margin: 0 0 16px;
+  }
+
+  /* ── options ────────────────────────────────────────────────── */
+  .opts { display: flex; flex-direction: column; gap: 11px; }
+  .opts.row { flex-direction: row; flex-wrap: wrap; }
+
+  .opt {
+    font: inherit; font-weight: 600; text-align: left;
+    color: var(--ink); background: var(--paper);
+    border: 2px solid var(--accent-soft); border-radius: 16px;
+    padding: 15px 20px; cursor: pointer;
+    box-shadow: 0 3px 0 var(--accent-soft);
+    transition: transform .16s cubic-bezier(.3,1.4,.5,1), border-color .16s, background .16s;
+  }
+  .opt:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .opt:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--accent-soft); }
+  .opt:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .opt.sel { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 3px 0 var(--accent-deep); }
+  .opts.row .opt { flex: 1 1 auto; text-align: center; padding: 14px 18px; }
+  .big { font-size: 20px; padding: 18px 22px; }
+
+  textarea {
+    font: inherit; width: 100%; min-height: 118px;
+    color: var(--ink); background: var(--paper);
+    border: 2px solid var(--accent-soft); border-radius: 16px;
+    padding: 14px 16px; resize: vertical;
+  }
+  textarea:focus { outline: 3px solid var(--focus); outline-offset: 2px; border-color: var(--accent); }
+  textarea::placeholder { color: var(--ink-faint); }
+
+
+  /* time range */
+  .range { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+  .range label {
+    display: flex; flex-direction: column; gap: 5px; flex: 1 1 140px;
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint);
+  }
+  .range input[type="time"] {
+    font: inherit; font-weight: 600; font-size: 19px;
+    color: var(--ink); background: var(--paper);
+    border: 2px solid var(--accent-soft); border-radius: 14px;
+    padding: 13px 14px; width: 100%; box-shadow: 0 3px 0 var(--accent-soft);
+  }
+  .range input[type="time"]:focus { outline: 3px solid var(--focus); outline-offset: 2px; border-color: var(--accent); }
+  .range .dash { padding-bottom: 16px; color: var(--ink-faint); font-size: 15px; }
+  .allday { margin-top: 12px; width: 100%; text-align: center; }
+
+  /* ── nav ────────────────────────────────────────────────────── */
+  .nav { display: flex; align-items: center; gap: 14px; margin-top: 26px; }
+  .next {
+    font: inherit; font-weight: 600; font-size: 18px; color: #fff;
+    background: var(--accent); border: 2px solid var(--accent);
+    border-radius: 999px; padding: 14px 30px; cursor: pointer;
+    box-shadow: 0 3px 0 var(--accent-deep);
+    transition: transform .16s cubic-bezier(.3,1.4,.5,1), opacity .2s;
+  }
+  .next:hover { transform: scale(1.04); }
+  .next:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--accent-deep); }
+  .next:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+  .next[disabled] { opacity: .4; cursor: default; transform: none; }
+
+  .back {
+    font: inherit; font-size: 15px; color: var(--ink-soft);
+    background: none; border: none; border-bottom: 2px solid var(--accent-soft);
+    padding: 2px 0; cursor: pointer;
+  }
+  .back:hover { color: var(--accent-deep); border-bottom-color: var(--accent); }
+  .back:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+  .hint { font-size: 14px; color: var(--ink-faint); margin: 16px 0 8px; }
+  .err  { font-size: 15px; color: var(--accent-deep); margin: 14px 0 0; min-height: 22px; }
+
+  .summary {
+    background: rgba(248,210,223,.34);
+    border-radius: 16px; padding: 16px 18px; margin: 0 0 20px; font-size: 16px;
+  }
+  .summary dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; }
+  .summary dt { color: var(--ink-soft); font-size: 14px; }
+  .summary dd { margin: 0; font-weight: 600; }
+
+  /* ── the gift, saved for the end ────────────────────────────── */
+  .gift-wrap { display: flex; justify-content: center; margin: 6px 0 18px; }
+  .gift { width: 170px; height: 170px; overflow: visible; }
+  .gift .lid { transform-origin: 50% 100%; transition: transform 1s cubic-bezier(.3,1.5,.4,1); }
+  .gift.open .lid { transform: translateY(-46px) rotate(-16deg); }
+  .gift .shine { opacity: 0; transition: opacity .8s ease .3s; }
+  .gift.open .shine { opacity: 1; }
+
+  .sig {
+    font-family: var(--hand); font-size: 26px; margin: 18px 0 0;
+    transform: rotate(-2deg); transform-origin: left center;
+  }
+
+  canvas.confetti {
+    position: fixed; inset: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 6;
+  }
+
+  @media (max-width: 560px) {
+    body { font-size: 17px; padding: 12px 16px; }
+    h1 { font-size: 26px; }
+    .card { padding: 0 20px 30px; }
+    .cake { width: 165px; height: 155px; }
+    .bunting { width: calc(100% + 40px); margin: 0 -20px 4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, .flame { animation-duration: .001s !important; transition-duration: .001s !important; }
+    .side, .balloon, .bunting .flag, .candle.lit .flame { animation: none !important; }
+    canvas.confetti { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bloom" viewBox="0 0 100 100">
+    <ellipse cx="50" cy="26" rx="12" ry="19" fill="var(--petal-a)"/>
+    <ellipse cx="74" cy="50" rx="19" ry="12" fill="var(--petal-b)"/>
+    <ellipse cx="50" cy="74" rx="12" ry="19" fill="var(--petal-a)"/>
+    <ellipse cx="26" cy="50" rx="19" ry="12" fill="var(--petal-b)"/>
+    <ellipse cx="67" cy="33" rx="16" ry="10" transform="rotate(-45 67 33)" fill="var(--petal-c)"/>
+    <ellipse cx="33" cy="33" rx="10" ry="16" transform="rotate(-45 33 33)" fill="var(--petal-c)"/>
+    <ellipse cx="67" cy="67" rx="10" ry="16" transform="rotate(-45 67 67)" fill="var(--petal-c)"/>
+    <ellipse cx="33" cy="67" rx="16" ry="10" transform="rotate(-45 33 67)" fill="var(--petal-c)"/>
+    <circle cx="50" cy="50" r="11" fill="var(--heart)"/>
+  </symbol>
+  <symbol id="blossom" viewBox="0 0 100 100">
+    <g fill="var(--petal-b)">
+      <ellipse cx="50" cy="30" rx="13" ry="19"/>
+      <ellipse cx="50" cy="30" rx="13" ry="19" transform="rotate(72 50 50)"/>
+      <ellipse cx="50" cy="30" rx="13" ry="19" transform="rotate(144 50 50)"/>
+      <ellipse cx="50" cy="30" rx="13" ry="19" transform="rotate(216 50 50)"/>
+      <ellipse cx="50" cy="30" rx="13" ry="19" transform="rotate(288 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="9" fill="var(--heart)"/>
+  </symbol>
+  <symbol id="sprig" viewBox="0 0 100 100">
+    <path d="M50 97 C47 78 53 62 50 42" stroke="var(--leaf)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M49 78 C39 74 33 66 35 59 C44 59 50 69 49 78Z" fill="var(--leaf)"/>
+    <path d="M51 64 C61 60 67 52 65 45 C56 45 50 55 51 64Z" fill="var(--leaf)"/>
+    <circle cx="50" cy="32" r="11" fill="var(--petal-c)"/>
+    <circle cx="33" cy="45" r="8" fill="var(--petal-a)"/>
+    <circle cx="67" cy="43" r="8" fill="var(--petal-b)"/>
+  </symbol>
+  <symbol id="balloon" viewBox="0 0 60 100">
+    <ellipse cx="30" cy="32" rx="26" ry="31" fill="currentColor"/>
+    <ellipse cx="21" cy="22" rx="7" ry="10" fill="rgba(255,255,255,.45)" transform="rotate(-18 21 22)"/>
+    <path d="M30 63 l-5 7 h10 z" fill="currentColor"/>
+    <path d="M30 70 C34 78 25 84 30 92 C34 96 29 99 30 100" stroke="currentColor"
+          stroke-width="1.6" fill="none" opacity=".55"/>
+  </symbol>
+</svg>
+
+<div class="balloons" aria-hidden="true">
+  <svg class="balloon b1" viewBox="0 0 60 100" style="color:var(--petal-b)"><use href="#balloon"/></svg>
+  <svg class="balloon b2" viewBox="0 0 60 100" style="color:var(--gold-soft)"><use href="#balloon"/></svg>
+  <svg class="balloon b3" viewBox="0 0 60 100" style="color:var(--lilac)"><use href="#balloon"/></svg>
+  <svg class="balloon b4" viewBox="0 0 60 100" style="color:var(--mint)"><use href="#balloon"/></svg>
+  <svg class="balloon b5" viewBox="0 0 60 100" style="color:var(--petal-c)"><use href="#balloon"/></svg>
+  <svg class="balloon b6" viewBox="0 0 60 100" style="color:var(--coral)"><use href="#balloon"/></svg>
+</div>
+
+<svg class="side s1" viewBox="0 0 100 100" aria-hidden="true"><use href="#bloom"/></svg>
+<svg class="side s2" viewBox="0 0 100 100" aria-hidden="true"><use href="#blossom"/></svg>
+<svg class="side s3" viewBox="0 0 100 100" aria-hidden="true"><use href="#sprig"/></svg>
+<svg class="side s4" viewBox="0 0 100 100" aria-hidden="true"><use href="#blossom"/></svg>
+<svg class="side s5" viewBox="0 0 100 100" aria-hidden="true"><use href="#blossom"/></svg>
+<svg class="side s6" viewBox="0 0 100 100" aria-hidden="true"><use href="#sprig"/></svg>
+<svg class="side s7" viewBox="0 0 100 100" aria-hidden="true"><use href="#bloom"/></svg>
+<svg class="side s8" viewBox="0 0 100 100" aria-hidden="true"><use href="#blossom"/></svg>
+
+<div class="card">
+
+  <svg class="bunting" viewBox="0 0 600 44" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 6 Q150 26 300 12 T600 6" stroke="var(--accent-soft)" stroke-width="2.5" fill="none"/>
+    <g class="flag" style="animation-delay:0s"    ><path d="M28 10 l24 3 l-13 22 z"  fill="var(--petal-b)"/></g>
+    <g class="flag" style="animation-delay:-.4s"  ><path d="M84 16 l24 3 l-13 22 z"  fill="var(--gold-soft)"/></g>
+    <g class="flag" style="animation-delay:-.8s"  ><path d="M140 20 l24 2 l-13 22 z" fill="var(--lilac)"/></g>
+    <g class="flag" style="animation-delay:-1.2s" ><path d="M196 22 l24 1 l-13 22 z" fill="var(--mint)"/></g>
+    <g class="flag" style="animation-delay:-1.6s" ><path d="M252 21 l24 -1 l-13 22 z" fill="var(--petal-c)"/></g>
+    <g class="flag" style="animation-delay:-2s"   ><path d="M308 18 l24 -2 l-13 22 z" fill="var(--coral)"/></g>
+    <g class="flag" style="animation-delay:-2.4s" ><path d="M364 15 l24 -2 l-13 22 z" fill="var(--petal-b)"/></g>
+    <g class="flag" style="animation-delay:-2.8s" ><path d="M420 12 l24 -2 l-13 22 z" fill="var(--gold-soft)"/></g>
+    <g class="flag" style="animation-delay:-3.2s" ><path d="M476 9 l24 -1 l-13 22 z"  fill="var(--lilac)"/></g>
+    <g class="flag" style="animation-delay:-3.6s" ><path d="M532 7 l24 0 l-13 22 z"   fill="var(--mint)"/></g>
+  </svg>
+
+  <div class="cake-wrap">
+    <svg class="cake" id="cake" viewBox="0 0 200 185" role="img"
+         aria-label="A birthday cake. A candle lights for each question you answer.">
+      <defs>
+        <radialGradient id="gl">
+          <stop offset="0%"   stop-color="var(--flame-a)" stop-opacity=".85"/>
+          <stop offset="100%" stop-color="var(--flame-a)" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- candles: one lights per answered question -->
+      <g class="candle" data-i="1">
+        <circle class="glow" cx="46" cy="34" r="17" fill="url(#gl)"/>
+        <rect x="42" y="44" width="8" height="30" rx="3" fill="var(--petal-b)"/>
+        <rect x="42" y="52" width="8" height="5" fill="var(--paper)" opacity=".7"/>
+        <path d="M46 44 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+        <path class="flame" d="M46 24 C40 30 40 38 46 39 C52 38 52 30 46 24Z" fill="var(--flame-b)"/>
+        <path class="flame" d="M46 29 C43 32 43 37 46 38 C49 37 49 32 46 29Z" fill="var(--flame-a)"/>
+      </g>
+      <g class="candle" data-i="2">
+        <circle class="glow" cx="73" cy="28" r="17" fill="url(#gl)"/>
+        <rect x="69" y="38" width="8" height="36" rx="3" fill="var(--gold-soft)"/>
+        <rect x="69" y="48" width="8" height="5" fill="var(--paper)" opacity=".7"/>
+        <path d="M73 38 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+        <path class="flame" d="M73 18 C67 24 67 32 73 33 C79 32 79 24 73 18Z" fill="var(--flame-b)"/>
+        <path class="flame" d="M73 23 C70 26 70 31 73 32 C76 31 76 26 73 23Z" fill="var(--flame-a)"/>
+      </g>
+      <g class="candle" data-i="3">
+        <circle class="glow" cx="100" cy="24" r="18" fill="url(#gl)"/>
+        <rect x="96" y="34" width="8" height="40" rx="3" fill="var(--lilac)"/>
+        <rect x="96" y="45" width="8" height="5" fill="var(--paper)" opacity=".7"/>
+        <path d="M100 34 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+        <path class="flame" d="M100 14 C94 20 94 28 100 29 C106 28 106 20 100 14Z" fill="var(--flame-b)"/>
+        <path class="flame" d="M100 19 C97 22 97 27 100 28 C103 27 103 22 100 19Z" fill="var(--flame-a)"/>
+      </g>
+      <g class="candle" data-i="4">
+        <circle class="glow" cx="127" cy="28" r="17" fill="url(#gl)"/>
+        <rect x="123" y="38" width="8" height="36" rx="3" fill="var(--mint)"/>
+        <rect x="123" y="48" width="8" height="5" fill="var(--paper)" opacity=".7"/>
+        <path d="M127 38 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+        <path class="flame" d="M127 18 C121 24 121 32 127 33 C133 32 133 24 127 18Z" fill="var(--flame-b)"/>
+        <path class="flame" d="M127 23 C124 26 124 31 127 32 C130 31 130 26 127 23Z" fill="var(--flame-a)"/>
+      </g>
+      <g class="candle" data-i="5">
+        <circle class="glow" cx="154" cy="34" r="17" fill="url(#gl)"/>
+        <rect x="150" y="44" width="8" height="30" rx="3" fill="var(--coral)"/>
+        <rect x="150" y="52" width="8" height="5" fill="var(--paper)" opacity=".7"/>
+        <path d="M154 44 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
+        <path class="flame" d="M154 24 C148 30 148 38 154 39 C160 38 160 30 154 24Z" fill="var(--flame-b)"/>
+        <path class="flame" d="M154 29 C151 32 151 37 154 38 C157 37 157 32 154 29Z" fill="var(--flame-a)"/>
+      </g>
+
+      <!-- top tier -->
+      <rect x="58" y="72" width="84" height="40" rx="10" fill="#FFF1E2"/>
+      <path d="M58 84 q10 10 21 0 t21 0 t21 0 t21 0 v-10 a10 10 0 0 0-10-10 H68 a10 10 0 0 0-10 10 z"
+            fill="var(--petal-a)"/>
+      <!-- bottom tier -->
+      <rect x="36" y="110" width="128" height="52" rx="12" fill="var(--petal-b)"/>
+      <path d="M36 124 q12 12 25 0 t25 0 t25 0 t25 0 t25 0 v-14 a12 12 0 0 0-12-12 H48 a12 12 0 0 0-12 12 z"
+            fill="#FFF1E2"/>
+      <!-- sprinkles -->
+      <g fill="var(--gold)" opacity=".75">
+        <rect x="52" y="138" width="7" height="3" rx="1.5" transform="rotate(22 52 138)"/>
+        <rect x="76" y="146" width="7" height="3" rx="1.5" transform="rotate(-34 76 146)"/>
+        <rect x="104" y="136" width="7" height="3" rx="1.5" transform="rotate(48 104 136)"/>
+        <rect x="128" y="148" width="7" height="3" rx="1.5" transform="rotate(-18 128 148)"/>
+        <rect x="146" y="134" width="7" height="3" rx="1.5" transform="rotate(36 146 134)"/>
+        <rect x="90" y="96"  width="6" height="3" rx="1.5" transform="rotate(-25 90 96)"/>
+        <rect x="118" y="100" width="6" height="3" rx="1.5" transform="rotate(40 118 100)"/>
+      </g>
+      <!-- plate -->
+      <ellipse cx="100" cy="166" rx="82" ry="9" fill="var(--accent-soft)"/>
+      <ellipse cx="100" cy="163" rx="76" ry="7" fill="#FFF1E2"/>
+    </svg>
+  </div>
+
+  <p class="lit-count" id="litCount">no candles lit yet</p>
+
+  <!-- 1 ─────────────────────────────────────────────── -->
+  <section class="step on" data-step="free">
+    <p class="eyebrow">hi baby</p>
+    <span class="date-strip">September 22</span>
+    <h1>Are you free on your birthday?</h1>
+    <div class="opts">
+      <button class="opt big" type="button" data-val="yes">Yes, I'm free</button>
+      <button class="opt big" type="button" data-val="no">No.</button>
+    </div>
+    <p class="err"></p>
+    <div class="nav"><button class="next" type="button" id="n1" disabled>Next</button></div>
+  </section>
+
+  <!-- 2a ────────────────────────────────────────────── -->
+  <section class="step" data-step="where">
+    <h1>Where will you be that day?</h1>
+    <p class="sub">So I know where to find you.</p>
+    <div class="opts">
+      <button class="opt" type="button" data-val="At home">At home</button>
+      <button class="opt" type="button" data-val="At work">At work</button>
+      <button class="opt" type="button" data-val="Out somewhere">Out somewhere</button>
+      <button class="opt" type="button" data-val="Not sure yet">Not sure yet</button>
+    </div>
+    <p class="err"></p>
+    <div class="nav">
+      <button class="next" type="button" id="n2" disabled>Next</button>
+      <button class="back" type="button">back</button>
+    </div>
+  </section>
+
+  <!-- 3a ────────────────────────────────────────────── -->
+  <section class="step" data-step="time">
+    <h1>What time are you free?</h1>
+    <p class="sub">Give me a window and I&rsquo;ll work with it.</p>
+    <div class="range">
+      <label>from <input type="time" id="from" step="900"></label>
+      <span class="dash">to</span>
+      <label>until <input type="time" id="to" step="900"></label>
+    </div>
+    <button class="opt allday" type="button" id="allday">I&rsquo;m free all day</button>
+    <p class="hint">Anything else I should know? (optional)</p>
+    <textarea id="note" placeholder="e.g. I'm free after 3, my shift ends at 2..."></textarea>
+    <p class="err"></p>
+    <div class="nav">
+      <button class="next" type="button" id="n3" disabled>Next</button>
+      <button class="back" type="button">back</button>
+    </div>
+  </section>
+
+  <!-- 2b ────────────────────────────────────────────── -->
+  <section class="step" data-step="reason">
+    <h1>Aw. What's on that day?</h1>
+    <p class="sub">Tell me what you've got and I'll work around it.</p>
+    <textarea id="reason" placeholder="I have work / a family thing..."></textarea>
+    <p class="err" id="err4"></p>
+    <div class="nav">
+      <button class="next" type="button" id="n4">Next</button>
+      <button class="back" type="button">back</button>
+    </div>
+  </section>
+
+  <!-- review ───────────────────────────────────────── -->
+  <section class="step" data-step="review">
+    <h1>That's everything.</h1>
+    <p class="sub">Have a look, then send it over.</p>
+    <div class="summary"><dl id="sum"></dl></div>
+    <p class="err" id="err5"></p>
+    <div class="nav">
+      <button class="next" type="button" id="send">Send it</button>
+      <button class="back" type="button">back</button>
+    </div>
+  </section>
+
+  <!-- done ─────────────────────────────────────────── -->
+  <section class="step" data-step="done">
+    <div class="gift-wrap">
+      <svg class="gift" id="gift" viewBox="0 0 180 180" aria-hidden="true">
+        <g class="shine" fill="var(--gold-soft)" opacity="0">
+          <path d="M90 6 l4 12 12 4 -12 4 -4 12 -4 -12 -12 -4 12 -4 z"/>
+          <path d="M148 40 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z"/>
+          <path d="M30 46 l2.5 7 7 2.5 -7 2.5 -2.5 7 -2.5 -7 -7 -2.5 7 -2.5 z"/>
+        </g>
+        <rect x="34" y="88" width="112" height="74" rx="8" fill="var(--petal-b)"/>
+        <rect x="82" y="88" width="16" height="74" fill="var(--gold-soft)"/>
+        <g class="lid">
+          <rect x="26" y="66" width="128" height="26" rx="7" fill="var(--petal-c)"/>
+          <rect x="82" y="66" width="16" height="26" fill="var(--gold-soft)"/>
+          <path d="M90 66 C74 66 66 52 76 44 C84 38 90 52 90 66 Z" fill="var(--gold)"/>
+          <path d="M90 66 C106 66 114 52 104 44 C96 38 90 52 90 66 Z" fill="var(--gold)"/>
+          <circle cx="90" cy="60" r="7" fill="var(--gold-soft)"/>
+        </g>
+      </svg>
+    </div>
+    <p class="eyebrow">got it</p>
+    <h1>Thank you baby.</h1>
+    <p class="sub">That's all I needed. Don't think about it too much.</p>
+    <p class="sig">love, your baby</p>
+  </section>
+</div>
+
+<canvas class="confetti" id="confetti" aria-hidden="true"></canvas>
+
+<script>
+/* ── confetti, always falling gently, bursting on demand ───────── */
+var Confetti = (function () {
+  var c = document.getElementById('confetti'), x = c.getContext('2d');
+  var W, H, bits = [], reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function size() {
+    var d = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    c.width = W * d; c.height = H * d;
+    x.setTransform(d, 0, 0, d, 0, 0);
+  }
+  addEventListener('resize', size); size();
+
+  function tok(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  var pal = ['--petal-a','--petal-b','--petal-c','--gold-soft','--gold','--mint','--lilac','--coral'].map(tok);
+
+  function make(seeded, ox, oy, fast) {
+    var a = Math.random() * Math.PI * 2, s = fast ? 4 + Math.random() * 9 : 0;
+    return {
+      x: ox !== undefined ? ox : Math.random() * W,
+      y: oy !== undefined ? oy : (seeded ? Math.random() * H : -20),
+      vx: fast ? Math.cos(a) * s : -.3 + Math.random() * .6,
+      vy: fast ? Math.sin(a) * s - 5 : .5 + Math.random() * .9,
+      w: 5 + Math.random() * 6, h: 3 + Math.random() * 5,
+      rot: Math.random() * 6.28, vr: (Math.random() - .5) * .22,
+      sway: Math.random() * 6.28, amp: .3 + Math.random() * .7,
+      col: pal[(Math.random() * pal.length) | 0],
+      round: Math.random() < .3,
+      grav: fast ? .26 : 0, life: fast ? 1 : -1
+    };
+  }
+
+  if (!reduced) {
+    var N = innerWidth < 560 ? 14 : 26;
+    for (var i = 0; i < N; i++) bits.push(make(true));
+  }
+
+  function burst(el) {
+    if (reduced) return;
+    var r = el.getBoundingClientRect();
+    var ox = r.left + r.width / 2, oy = r.top + r.height / 2;
+    for (var i = 0; i < 140; i++) bits.push(make(false, ox, oy, true));
+  }
+
+  (function tick() {
+    x.clearRect(0, 0, W, H);
+    for (var i = bits.length - 1; i >= 0; i--) {
+      var b = bits[i];
+      if (b.grav) b.vy += b.grav;
+      b.sway += .03;
+      b.y += b.vy;
+      b.x += b.vx + Math.sin(b.sway) * b.amp;
+      b.rot += b.vr;
+      if (b.life > 0) { b.life -= .0035; if (b.life <= 0) { bits.splice(i, 1); continue; } }
+      if (b.y > H + 40) {
+        if (b.life > 0) { bits.splice(i, 1); continue; }
+        bits[i] = make(false); continue;
+      }
+      x.save(); x.translate(b.x, b.y); x.rotate(b.rot);
+      x.globalAlpha = b.life > 0 ? Math.min(1, b.life) : .85;
+      x.fillStyle = b.col;
+      if (b.round) { x.beginPath(); x.ellipse(0, 0, b.w / 2, b.w / 2, 0, 0, 6.28); x.fill(); }
+      else x.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+      x.restore();
+    }
+    x.globalAlpha = 1;
+    requestAnimationFrame(tick);
+  })();
+
+  return { burst: burst };
+})();
+
+/* ── the questionnaire ─────────────────────────────────────────── */
+(function () {
+  var ACCESS_KEY = 'a32b0829-d6f5-4278-9f0a-c5a667d7379a';
+
+  var steps = {};
+  [].forEach.call(document.querySelectorAll('.step'), function (s) { steps[s.dataset.step] = s; });
+
+  var answers = { free: '', where: '', from: '', to: '', allday: false, note: '', reason: '' };
+  var trail = [], current = 'free', lit = 0;
+
+  var candles = [].slice.call(document.querySelectorAll('.candle'));
+  var litCount = document.getElementById('litCount');
+
+  function light(n) {
+    if (n <= lit) return;
+    lit = Math.min(n, candles.length);
+    candles.forEach(function (c, i) { c.classList.toggle('lit', i < lit); });
+    litCount.textContent = lit === 0 ? 'no candles lit yet'
+      : lit + (lit === 1 ? ' candle lit' : ' candles lit');
+  }
+
+  function show(name) {
+    steps[current].classList.remove('on');
+    current = name;
+    steps[name].classList.add('on');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function go(name) { trail.push(current); show(name); }
+
+  [].forEach.call(document.querySelectorAll('.back'), function (b) {
+    b.addEventListener('click', function () { if (trail.length) show(trail.pop()); });
+  });
+
+  [].forEach.call(document.querySelectorAll('.opts'), function (group) {
+    var multi = group.hasAttribute('data-multi');
+    group.addEventListener('click', function (e) {
+      var b = e.target.closest('.opt');
+      if (!b) return;
+      if (multi) b.classList.toggle('sel');
+      else [].forEach.call(group.querySelectorAll('.opt'), function (o) { o.classList.toggle('sel', o === b); });
+
+      var step = group.closest('.step').dataset.step;
+      var picked = [].map.call(group.querySelectorAll('.opt.sel'), function (o) { return o.dataset.val; });
+      if (step === 'free')  { answers.free  = picked[0] || ''; enable('n1', !!picked.length); }
+      if (step === 'where') { answers.where = picked[0] || ''; enable('n2', !!picked.length); }
+    });
+  });
+
+  function enable(id, on) { var b = document.getElementById(id); if (b) b.disabled = !on; }
+
+  document.getElementById('n1').addEventListener('click', function () {
+    light(1);
+    go(answers.free === 'yes' ? 'where' : 'reason');
+  });
+  document.getElementById('n2').addEventListener('click', function () { light(2); go('time'); });
+  var fromEl = document.getElementById('from');
+  var toEl   = document.getElementById('to');
+  var allday = document.getElementById('allday');
+
+  function pretty(v) {
+    if (!v) return '';
+    var b = v.split(':'), h = +b[0], m = b[1];
+    var ap = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return h + ':' + m + ' ' + ap;
+  }
+
+  function checkTime() {
+    enable('n3', allday.classList.contains('sel') || (!!fromEl.value && !!toEl.value));
+  }
+  fromEl.addEventListener('input', function () { allday.classList.remove('sel'); checkTime(); });
+  toEl.addEventListener('input',   function () { allday.classList.remove('sel'); checkTime(); });
+  allday.addEventListener('click', function () {
+    this.classList.toggle('sel');
+    if (this.classList.contains('sel')) { fromEl.value = ''; toEl.value = ''; }
+    checkTime();
+  });
+
+  document.getElementById('n3').addEventListener('click', function () {
+    answers.allday = allday.classList.contains('sel');
+    answers.from = answers.allday ? '' : fromEl.value;
+    answers.to   = answers.allday ? '' : toEl.value;
+    answers.note = document.getElementById('note').value.trim();
+    light(3); review();
+  });
+  document.getElementById('n4').addEventListener('click', function () {
+    var v = document.getElementById('reason').value.trim();
+    if (!v) { document.getElementById('err4').textContent = 'tell me a little, even just a word'; return; }
+    document.getElementById('err4').textContent = '';
+    answers.reason = v;
+    light(3); review();
+  });
+
+  function review() {
+    var dl = document.getElementById('sum');
+    dl.innerHTML = '';
+    function row(k, v) {
+      if (!v) return;
+      var dt = document.createElement('dt'); dt.textContent = k;
+      var dd = document.createElement('dd'); dd.textContent = v;
+      dl.appendChild(dt); dl.appendChild(dd);
+    }
+    row('Free?',  answers.free === 'yes' ? 'Yes' : 'No');
+    row('Where',  answers.where);
+    row('Free',   answers.allday ? 'All day'
+                  : (answers.from ? pretty(answers.from) + ' \u2013 ' + pretty(answers.to) : ''));
+    row('Note',   answers.note);
+    row('Reason', answers.reason);
+    light(4);
+    go('review');
+  }
+
+  document.getElementById('send').addEventListener('click', function () {
+    var btn = this, err = document.getElementById('err5');
+    err.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'sending...';
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        access_key: ACCESS_KEY,
+        subject: 'Birthday plan — her answer',
+        from_name: 'Birthday question',
+        'Free on Sept 22': answers.free === 'yes' ? 'Yes' : 'No',
+        'Where': answers.where || '—',
+        'Times free': answers.allday ? 'All day'
+          : (answers.from ? pretty(answers.from) + ' to ' + pretty(answers.to) : '—'),
+        'Her note': answers.note || '—',
+        'Reason busy': answers.reason || '—'
+      })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.success) throw new Error(d.message || 'failed');
+        light(5);
+        go('done');
+        var gift = document.getElementById('gift');
+        setTimeout(function () { gift.classList.add('open'); Confetti.burst(gift); }, 380);
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Try again';
+        err.textContent = "that didn't go through. try once more?";
+      });
+  });
+})();
+</script>
+</body>
+</html>
