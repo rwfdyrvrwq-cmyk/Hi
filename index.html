@@ -167,6 +167,40 @@
     margin: 0 0 20px;
   }
 
+
+  /* blowing the candles out */
+  .smoke { opacity: 0; pointer-events: none; }
+  .cake.blowable .candle { cursor: pointer; }
+  .cake.blowable .candle:hover .flame { transform: scaleY(1.2); }
+  .candle.out .flame { opacity: 0 !important; animation: none !important; }
+  .candle.out .glow  { opacity: 0 !important; }
+  .candle.out .smoke { animation: puff 1.5s ease-out forwards; }
+  @keyframes puff {
+    0%   { opacity: .75; transform: translateY(0) scale(.5); }
+    100% { opacity: 0;   transform: translateY(-26px) scale(1.25); }
+  }
+
+  .tap-hint {
+    text-align: center; font-size: 13px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent);
+    margin: 0 0 18px; animation: nudge 1.8s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    0%,100% { opacity: .55; transform: translateY(0); }
+    50%     { opacity: 1;   transform: translateY(-3px); }
+  }
+
+  .gift { cursor: default; }
+  .gift.tappable { cursor: pointer; }
+  .gift.tappable:hover { transform: scale(1.04); }
+  .gift { transition: transform .25s cubic-bezier(.3,1.5,.4,1); }
+  .gift.shake { animation: wiggle .5s ease-in-out; }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(0); }
+    25%     { transform: rotate(-5deg); }
+    75%     { transform: rotate(5deg); }
+  }
+
   /* ── steps ──────────────────────────────────────────────────── */
   .step { display: none; }
   .step.on { display: block; animation: rise-in .45s cubic-bezier(.2,.7,.3,1) both; }
@@ -228,20 +262,18 @@
   textarea::placeholder { color: var(--ink-faint); }
 
 
-  /* time range */
-  .range { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
-  .range label {
-    display: flex; flex-direction: column; gap: 5px; flex: 1 1 140px;
-    font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint);
+  /* tappable times */
+  .times {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: 9px;
   }
-  .range input[type="time"] {
-    font: inherit; font-weight: 600; font-size: 19px;
-    color: var(--ink); background: var(--paper);
-    border: 2px solid var(--accent-soft); border-radius: 14px;
-    padding: 13px 14px; width: 100%; box-shadow: 0 3px 0 var(--accent-soft);
+  .opt.time {
+    text-align: center;
+    padding: 13px 8px;
+    font-size: 16px;
+    border-radius: 13px;
   }
-  .range input[type="time"]:focus { outline: 3px solid var(--focus); outline-offset: 2px; border-color: var(--accent); }
-  .range .dash { padding-bottom: 16px; color: var(--ink-faint); font-size: 15px; }
   .allday { margin-top: 12px; width: 100%; text-align: center; }
 
   /* ── nav ────────────────────────────────────────────────────── */
@@ -403,6 +435,8 @@
         <path d="M46 44 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
         <path class="flame" d="M46 24 C40 30 40 38 46 39 C52 38 52 30 46 24Z" fill="var(--flame-b)"/>
         <path class="flame" d="M46 29 C43 32 43 37 46 38 C49 37 49 32 46 29Z" fill="var(--flame-a)"/>
+      
+        <path class="smoke" d="M46 48 c-6 -8 6 -14 0 -22 c-5 -7 4 -12 1 -18" stroke="var(--ink-faint)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       </g>
       <g class="candle" data-i="2">
         <circle class="glow" cx="73" cy="28" r="17" fill="url(#gl)"/>
@@ -411,6 +445,8 @@
         <path d="M73 38 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
         <path class="flame" d="M73 18 C67 24 67 32 73 33 C79 32 79 24 73 18Z" fill="var(--flame-b)"/>
         <path class="flame" d="M73 23 C70 26 70 31 73 32 C76 31 76 26 73 23Z" fill="var(--flame-a)"/>
+      
+        <path class="smoke" d="M73 42 c-6 -8 6 -14 0 -22 c-5 -7 4 -12 1 -18" stroke="var(--ink-faint)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       </g>
       <g class="candle" data-i="3">
         <circle class="glow" cx="100" cy="24" r="18" fill="url(#gl)"/>
@@ -419,6 +455,8 @@
         <path d="M100 34 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
         <path class="flame" d="M100 14 C94 20 94 28 100 29 C106 28 106 20 100 14Z" fill="var(--flame-b)"/>
         <path class="flame" d="M100 19 C97 22 97 27 100 28 C103 27 103 22 100 19Z" fill="var(--flame-a)"/>
+      
+        <path class="smoke" d="M100 38 c-6 -8 6 -14 0 -22 c-5 -7 4 -12 1 -18" stroke="var(--ink-faint)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       </g>
       <g class="candle" data-i="4">
         <circle class="glow" cx="127" cy="28" r="17" fill="url(#gl)"/>
@@ -427,6 +465,8 @@
         <path d="M127 38 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
         <path class="flame" d="M127 18 C121 24 121 32 127 33 C133 32 133 24 127 18Z" fill="var(--flame-b)"/>
         <path class="flame" d="M127 23 C124 26 124 31 127 32 C130 31 130 26 127 23Z" fill="var(--flame-a)"/>
+      
+        <path class="smoke" d="M127 42 c-6 -8 6 -14 0 -22 c-5 -7 4 -12 1 -18" stroke="var(--ink-faint)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       </g>
       <g class="candle" data-i="5">
         <circle class="glow" cx="154" cy="34" r="17" fill="url(#gl)"/>
@@ -435,6 +475,8 @@
         <path d="M154 44 v-5" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round"/>
         <path class="flame" d="M154 24 C148 30 148 38 154 39 C160 38 160 30 154 24Z" fill="var(--flame-b)"/>
         <path class="flame" d="M154 29 C151 32 151 37 154 38 C157 37 157 32 154 29Z" fill="var(--flame-a)"/>
+      
+        <path class="smoke" d="M154 48 c-6 -8 6 -14 0 -22 c-5 -7 4 -12 1 -18" stroke="var(--ink-faint)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       </g>
 
       <!-- top tier -->
@@ -496,11 +538,24 @@
   <!-- 3a ────────────────────────────────────────────── -->
   <section class="step" data-step="time">
     <h1>What time are you free?</h1>
-    <p class="sub">Give me a window and I&rsquo;ll work with it.</p>
-    <div class="range">
-      <label>from <input type="time" id="from" step="900"></label>
-      <span class="dash">to</span>
-      <label>until <input type="time" id="to" step="900"></label>
+    <p class="sub">Tap every time that works. As many as you like.</p>
+    <div class="times" id="times">
+      <button class="opt time" type="button" data-val="8:00 AM">8:00 AM</button>
+      <button class="opt time" type="button" data-val="9:00 AM">9:00 AM</button>
+      <button class="opt time" type="button" data-val="10:00 AM">10:00 AM</button>
+      <button class="opt time" type="button" data-val="11:00 AM">11:00 AM</button>
+      <button class="opt time" type="button" data-val="12:00 PM">12:00 PM</button>
+      <button class="opt time" type="button" data-val="1:00 PM">1:00 PM</button>
+      <button class="opt time" type="button" data-val="2:00 PM">2:00 PM</button>
+      <button class="opt time" type="button" data-val="3:00 PM">3:00 PM</button>
+      <button class="opt time" type="button" data-val="4:00 PM">4:00 PM</button>
+      <button class="opt time" type="button" data-val="5:00 PM">5:00 PM</button>
+      <button class="opt time" type="button" data-val="6:00 PM">6:00 PM</button>
+      <button class="opt time" type="button" data-val="7:00 PM">7:00 PM</button>
+      <button class="opt time" type="button" data-val="8:00 PM">8:00 PM</button>
+      <button class="opt time" type="button" data-val="9:00 PM">9:00 PM</button>
+      <button class="opt time" type="button" data-val="10:00 PM">10:00 PM</button>
+      <button class="opt time" type="button" data-val="11:00 PM">11:00 PM</button>
     </div>
     <button class="opt allday" type="button" id="allday">I&rsquo;m free all day</button>
     <p class="hint">Anything else I should know? (optional)</p>
@@ -556,9 +611,9 @@
         </g>
       </svg>
     </div>
+    <p class="tap-hint" id="tapHint">tap the present</p>
     <p class="eyebrow">got it</p>
     <h1>Thank you baby.</h1>
-    <p class="sub">That's all I needed. Don't think about it too much.</p>
     <p class="sig">love, your baby</p>
   </section>
 </div>
@@ -645,7 +700,7 @@ var Confetti = (function () {
   var steps = {};
   [].forEach.call(document.querySelectorAll('.step'), function (s) { steps[s.dataset.step] = s; });
 
-  var answers = { free: '', where: '', from: '', to: '', allday: false, note: '', reason: '' };
+  var answers = { free: '', where: '', times: [], allday: false, note: '', reason: '' };
   var trail = [], current = 'free', lit = 0;
 
   var candles = [].slice.call(document.querySelectorAll('.candle'));
@@ -693,33 +748,33 @@ var Confetti = (function () {
     go(answers.free === 'yes' ? 'where' : 'reason');
   });
   document.getElementById('n2').addEventListener('click', function () { light(2); go('time'); });
-  var fromEl = document.getElementById('from');
-  var toEl   = document.getElementById('to');
-  var allday = document.getElementById('allday');
+  var timesBox = document.getElementById('times');
+  var allday   = document.getElementById('allday');
 
-  function pretty(v) {
-    if (!v) return '';
-    var b = v.split(':'), h = +b[0], m = b[1];
-    var ap = h >= 12 ? 'PM' : 'AM';
-    h = h % 12 || 12;
-    return h + ':' + m + ' ' + ap;
+  function pickedTimes() {
+    return [].map.call(timesBox.querySelectorAll('.opt.sel'), function (o) { return o.dataset.val; });
   }
-
   function checkTime() {
-    enable('n3', allday.classList.contains('sel') || (!!fromEl.value && !!toEl.value));
+    enable('n3', allday.classList.contains('sel') || pickedTimes().length > 0);
   }
-  fromEl.addEventListener('input', function () { allday.classList.remove('sel'); checkTime(); });
-  toEl.addEventListener('input',   function () { allday.classList.remove('sel'); checkTime(); });
+  timesBox.addEventListener('click', function (e) {
+    var b = e.target.closest('.opt');
+    if (!b) return;
+    b.classList.toggle('sel');
+    allday.classList.remove('sel');
+    checkTime();
+  });
   allday.addEventListener('click', function () {
     this.classList.toggle('sel');
-    if (this.classList.contains('sel')) { fromEl.value = ''; toEl.value = ''; }
+    if (this.classList.contains('sel')) {
+      [].forEach.call(timesBox.querySelectorAll('.opt'), function (o) { o.classList.remove('sel'); });
+    }
     checkTime();
   });
 
   document.getElementById('n3').addEventListener('click', function () {
     answers.allday = allday.classList.contains('sel');
-    answers.from = answers.allday ? '' : fromEl.value;
-    answers.to   = answers.allday ? '' : toEl.value;
+    answers.times  = answers.allday ? [] : pickedTimes();
     answers.note = document.getElementById('note').value.trim();
     light(3); review();
   });
@@ -742,12 +797,49 @@ var Confetti = (function () {
     }
     row('Free?',  answers.free === 'yes' ? 'Yes' : 'No');
     row('Where',  answers.where);
-    row('Free',   answers.allday ? 'All day'
-                  : (answers.from ? pretty(answers.from) + ' \u2013 ' + pretty(answers.to) : ''));
+    row('Free',   answers.allday ? 'All day' : answers.times.join(', '));
     row('Note',   answers.note);
     row('Reason', answers.reason);
     light(4);
     go('review');
+  }
+
+
+  /* on the last screen the cake and the gift become toys */
+  function startPlay() {
+    var cake = document.getElementById('cake');
+    var gift = document.getElementById('gift');
+    var hint = document.getElementById('tapHint');
+
+    gift.classList.add('tappable');
+    gift.addEventListener('click', function () {
+      if (gift.classList.contains('open')) { 
+        gift.classList.remove('shake');
+        void gift.offsetWidth;
+        gift.classList.add('shake');
+        return;
+      }
+      gift.classList.add('open');
+      Confetti.burst(gift);
+      hint.textContent = 'now blow out the candles';
+      cake.classList.add('blowable');
+    });
+
+    cake.addEventListener('click', function (e) {
+      if (!cake.classList.contains('blowable')) return;
+      var c = e.target.closest('.candle');
+      if (!c || !c.classList.contains('lit') || c.classList.contains('out')) return;
+      c.classList.add('out');
+      c.classList.remove('lit');
+      if (!cake.querySelector('.candle.lit')) {
+        litCount.textContent = 'make a wish';
+        hint.textContent = '';
+        Confetti.burst(cake);
+      } else {
+        var left = cake.querySelectorAll('.candle.lit').length;
+        litCount.textContent = left + (left === 1 ? ' candle left' : ' candles left');
+      }
+    });
   }
 
   document.getElementById('send').addEventListener('click', function () {
@@ -765,8 +857,7 @@ var Confetti = (function () {
         from_name: 'Birthday question',
         'Free on Sept 22': answers.free === 'yes' ? 'Yes' : 'No',
         'Where': answers.where || '—',
-        'Times free': answers.allday ? 'All day'
-          : (answers.from ? pretty(answers.from) + ' to ' + pretty(answers.to) : '—'),
+        'Times free': answers.allday ? 'All day' : (answers.times.join(', ') || '—'),
         'Her note': answers.note || '—',
         'Reason busy': answers.reason || '—'
       })
@@ -776,8 +867,7 @@ var Confetti = (function () {
         if (!d.success) throw new Error(d.message || 'failed');
         light(5);
         go('done');
-        var gift = document.getElementById('gift');
-        setTimeout(function () { gift.classList.add('open'); Confetti.burst(gift); }, 380);
+        startPlay();
       })
       .catch(function () {
         btn.disabled = false;
