@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A Quick Question</title>
 <meta name="theme-color" content="#FFF7F3">
 
@@ -58,7 +58,8 @@
   }
 
   * { box-sizing: border-box; }
-  html, body { overflow-x: hidden; max-width: 100%; }
+  html { overflow-x: hidden; }
+  body { max-width: 100%; }
 
   body {
     margin: 0;
@@ -70,7 +71,6 @@
     line-height: var(--lh);
     -webkit-font-smoothing: antialiased;
     padding: clamp(16px,4vw,48px) clamp(14px,4vw,32px);
-    position: relative;
   }
 
   /* ── balloons drifting up behind everything ─────────────────── */
