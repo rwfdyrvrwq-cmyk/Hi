@@ -939,5 +939,37 @@ var Confetti = (function () {
 })();
 </script>
 
+
+<script>
+(function () {
+  if (!/[?&]debug=1/.test(location.search)) return;
+  var box = document.createElement('div');
+  box.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#1b1b1b;' +
+    'color:#9fe;font:12px/1.45 ui-monospace,Menlo,monospace;padding:10px 12px;' +
+    'white-space:pre-wrap;max-height:52vh;overflow:auto;';
+  document.body.appendChild(box);
+  function run() {
+    var vw = document.documentElement.clientWidth, out = [];
+    out.push('UA ' + (/CriOS|Chrome/.test(navigator.userAgent) ? 'chromium' :
+                      /Safari/.test(navigator.userAgent) ? 'safari' : 'other'));
+    out.push('viewport ' + vw + '  inner ' + window.innerWidth);
+    out.push('docScroll ' + document.documentElement.scrollWidth +
+             '  bodyScroll ' + document.body.scrollWidth);
+    out.push('overflow? ' + (document.documentElement.scrollWidth > vw ? 'YES' : 'no'));
+    var card = document.querySelector('.card');
+    if (card) {
+      var r = card.getBoundingClientRect();
+      out.push('CARD  left=' + Math.round(r.left) +
+               '  rightGap=' + Math.round(vw - r.right) +
+               '  width=' + Math.round(r.width));
+    }
+    var b = document.body, cs = getComputedStyle(b);
+    out.push('body pad ' + cs.paddingLeft + ' / ' + cs.paddingRight);
+    out.push('body width ' + Math.round(b.getBoundingClientRect().width));
+    box.textContent = out.join('\n');
+  }
+  run(); addEventListener('resize', run);
+})();
+</script>
 </body>
 </html>
