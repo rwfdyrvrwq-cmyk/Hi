@@ -528,7 +528,7 @@
     </svg>
   </div>
 
-  <p class="lit-count" id="litCount">no candles lit yet</p>
+  <p class="lit-count" id="litCount">a candle lights for every answer</p>
 
   <!-- 1 ─────────────────────────────────────────────── -->
   <section class="step on" data-step="free">
@@ -745,8 +745,8 @@ var Confetti = (function () {
     if (n <= lit) return;
     lit = Math.min(n, candles.length);
     candles.forEach(function (c, i) { c.classList.toggle('lit', i < lit); });
-    litCount.textContent = lit === 0 ? 'no candles lit yet'
-      : lit + (lit === 1 ? ' candle lit' : ' candles lit');
+    litCount.textContent = lit === 0 ? 'a candle lights for every answer'
+      : lit + ' of ' + candles.length + ' lit';
   }
 
   function show(name) {
